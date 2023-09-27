@@ -1,0 +1,67 @@
+//create or switch to : database named contact
+use contact 
+
+//Create collection named "contactlist"
+db.createCollection("contactlist")
+
+// to see all the collections inside the current database
+show collections
+
+// to see the content of the contactlist collection
+db.contactlist.find()
+
+//Insert one document in the database
+
+db.contactlist.insert({lastname:'lahmer',firstname:'fares',email:'fares@gmail.com',age:26}) 
+
+//Insert multiple documents in the collection 
+
+db.contactlist.insertMany([
+{
+lastname:'kefi',
+firstname:'saif',
+email:'saif@gmail.com',
+age:15},
+{
+lastname:'fatnassi',
+firstname:'sarra',
+email:'sarra@gmail.com',
+age:40},
+{
+lastname:'Ben yahya',
+firstname:'Rym',
+email:'rym@gmail.com',
+age:27}]
+) 
+
+//show me organized list of documents
+db.contactlist.find().pretty()
+
+//find document by firstname :
+db.contactlist.find({firstname:"Rym"})
+
+//Find document by id 
+db.contactlist.find({"_id":ObjectId("651335d19976083b7c2f2167")}
+
+//Find by age greater than 18 : 
+db.contactlist.find({age:{$gt:18}}).pretty()
+
+//Delete by firstname
+db.contactlist.remove({firstname:"fares"})
+
+//Delete By Id
+db.contactlist.remove(ObjectId("651335d19976083b7c2f2167"))
+
+// Find by conatians (regular epression) 
+ db.contactlist.find({"lastname":{$regex:"a"}}).pretty()
+
+//search by multiple conditions
+
+db.contactlist.find({age:{$gt:18},"lastname":{$regex:"ah"}}).pretty()
+
+//update a field of a document 
+db.contactlist.update({firstname:"fares"},{$set:{"firstname":"anis"}})
+
+// Delete who is aged less then 18
+db.contactlist.remove({age:{$lt:18}})
+
